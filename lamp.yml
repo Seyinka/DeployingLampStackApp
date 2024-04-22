@@ -12,6 +12,15 @@
     - name: Execute the lamp.sh bash script to setup LAMP stack
       command: /home/vagrant/lamp.sh
 
+    - name: Verify PHP application accesibilty
+      shell: "curl http://192.168.33.25/var/www/laravel
+      register: result
+      ignore_errors: yes
+
+    - name: Show output
+      debug: 
+        var: result.content
+
     - name: Create cron job
       cron:
         name: "uptime check"
